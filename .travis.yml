@@ -4,3 +4,10 @@ jdk: openjdk11
 
 script:
  - ./mvnw clean install
+ 
+ notifications:
+   email:
+     recipients:
+       secure: "BnKROlNoueHfnaXN+Buv7d4IQRS1Yrc/mN4F0Rt3fYqYQcFdXbGOsGcumFei74H8NEECACHZY3i5mlwEDtmWWifz/cdmVhTK651Jv9l9UuP81DH9IKBBWk09GCSWYXkHEMwlh8oyrdSGi0plKNnr2vz7nqkDm4lRd2jap8L+yvkSIh0Z4fdLcfP22wLuZwNjLvQPAccz6UzjIJsv6tbkUu2eeRNFSqEeSkpoJapsKB+uBkdA3snUKWXEwT1YjIObXklbCa6Bokx7M4OxiNwHT0uyCZnV6FnerangRHGfanZvcLs354evQuYkUXDXZt5h5ry0U9xjvdU7/9MEpnra1qA4DNLDpvQQ4LRTPUuNipoMcFSwlxyloC0slli9zkWJadvWZ3FdRMIlVDLWceQocwpUUzDlBBB5vHJjbjgHJgyKWTXIxb8sH8Hj2WwPOPUMRbQmd9QYtGn5wq2igT3jkIQWpbzGi6JTZXDdrJ06HjqD01HoP68pzGRCRYNAdqlAoy/R/aILyKchg3OhaRauXZNZyV41eaEyj8/sFyL7WDqRD8we9LbqTKlfBVohk6tIquYz1//3E44AZ4OLpRi5Kl+emDITnz3DYBIfMcer7NQhhMrPmp0vAPAOGiX2qt8/TZP7jZsKHZBRhS94XBIgYm2Dj29vfPZ3UIZMEcMP52U="
+   on_success: always
+   on_failure: always 
