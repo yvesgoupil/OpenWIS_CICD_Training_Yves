@@ -1,47 +1,40 @@
 language: java
-
 jdk: openjdk11
-
 addons:
   sonarcloud:
-    organization: "yvesgoupil"
+    organization: yvesgoupil
     token:
       secure: K5bjFX2JjiQSGubZveOu0IUAKY9GZUxwSlT1eZuMIFEIrXNd2bEjHMYFgbwUQcLvfMl5EPJEwyJHR3F7GqP2eEv+YHp5m60kQmoqY3fI03Bjdbt9PizqPdkC8ogOIkDES6UUF+Uk6/hyhK+Na4ZhvaLPSDHf+8s0giSqQ+6jUvdKWV3b8Q82qkEGYBASyUI0FjVEeYKoTdhSJfZeKjL9Zwr7zle19f8DWvj+k9s0OAiKnTe7l1lsvEAumEt4aqN/YqO/1oZN0StZFmYIuxys++QK3KtVzfHOXcdwHh+OcBZvhVlsVyGOSEY2/1SnX7OaEqsCEZ1H/08FnaAKEUL8fImoLH+EnZKnCYBQ0jmJbRGzylkMAEn9asv7hPMDks0AeQjC4XokBmU3rtxEjuC2Kms/znpTA2Wy9ph621KeQisO4ajzWOrkFmHo58bWdGHd0bAywfYZdmQQiVfQXsTTFtUwNvetTwGW7pJiP/ElvkvkxEBzrFNkaHdalXi3aBPvjdI1HKXEPwRz2a8ILqccZSvxe02mw4VOFGJB197z6x0/rrFb2K9gpqcdx5UDgdH0DpiFCGt9j7x79IE3e+wmsHEFaqtBd3LfPeZiUm1dn9n6BTREzRKiO7IAitUx1wUfxP9xKesDYIRB36wboIy7bXgDRunPItdurKEbyFxvNAQ=
-
 before_install:
-  - openssl aes-256-cbc -K $encrypted_180f41e11b0e_key -iv $encrypted_180f41e11b0e_iv
-    -in yvesgoupil.enc -out yvesgoupil –d
-  - chmod +x mvnw
-  - eval "$(ssh-agent -s)"
-  - chmod 600 <key_name>
-  - ssh-add <key_name>
-  - echo -e "Host ${DEPLOY_HOST}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-
+- openssl aes-256-cbc -K $encrypted_367308349be3_key -iv $encrypted_367308349be3_iv
+  -in yvesgoupil_key.enc -out yvesgoupil_key -d
+- chmod +x mvnw
+- eval "$(ssh-agent -s)"
+- chmod 600 yvesgoupil_key
+- ssh-add yvesgoupil_key
+- echo -e "Host ${DEPLOY_HOST}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 script:
-- ./mvnw clean install sonar:sonar -Dsonar.projectKey=yvesgoupil_OpenWIS_CICD_Training_Yves
-
+- "./mvnw clean install sonar:sonar -Dsonar.projectKey=yvesgoupil_OpenWIS_CICD_Training_Yves"
 notifications:
   email:
     recipients:
       secure: BnKROlNoueHfnaXN+Buv7d4IQRS1Yrc/mN4F0Rt3fYqYQcFdXbGOsGcumFei74H8NEECACHZY3i5mlwEDtmWWifz/cdmVhTK651Jv9l9UuP81DH9IKBBWk09GCSWYXkHEMwlh8oyrdSGi0plKNnr2vz7nqkDm4lRd2jap8L+yvkSIh0Z4fdLcfP22wLuZwNjLvQPAccz6UzjIJsv6tbkUu2eeRNFSqEeSkpoJapsKB+uBkdA3snUKWXEwT1YjIObXklbCa6Bokx7M4OxiNwHT0uyCZnV6FnerangRHGfanZvcLs354evQuYkUXDXZt5h5ry0U9xjvdU7/9MEpnra1qA4DNLDpvQQ4LRTPUuNipoMcFSwlxyloC0slli9zkWJadvWZ3FdRMIlVDLWceQocwpUUzDlBBB5vHJjbjgHJgyKWTXIxb8sH8Hj2WwPOPUMRbQmd9QYtGn5wq2igT3jkIQWpbzGi6JTZXDdrJ06HjqD01HoP68pzGRCRYNAdqlAoy/R/aILyKchg3OhaRauXZNZyV41eaEyj8/sFyL7WDqRD8we9LbqTKlfBVohk6tIquYz1//3E44AZ4OLpRi5Kl+emDITnz3DYBIfMcer7NQhhMrPmp0vAPAOGiX2qt8/TZP7jZsKHZBRhS94XBIgYm2Dj29vfPZ3UIZMEcMP52U=
   on_success: always
   on_failure: always
-
 env:
   global:
   - secure: drV5IbVpMmVcUAljg3DzNo3G8LeQVMqNiCkky9zWyqJ8lEwOsTnX7Qp8YwIQkZq3Vu/larqezruk2P7T27eUfGEkFPWBaurWbM/qfR+kWuNVgev7ZyD56RCv5X8LUvyN8eZf/+JwHwWI6PBzCmYi7UfkJJ5vVuPOzo9ouP0XbuYmNfYdP7U9UuAa8Flg37jxDFU3Unl3ZfLi8W28ejB4etFon7CDnZzWEwUN3egIE5P5kyxVlADKsitMeJ3fGxKL9eII8OEe8XfCeW6ohk8ysNdMzOs1WtRvcpPuwJxAnELWLcYfPOCRiSOt9RR9C26WCiEdRzCmQprUNJpTPDCZU8ERHKIibuG/2vauB6VU9tWTSOrKdrkJGq9vG/zeEe/op/3LhI6CYMDJgz8QNfVc1uWPmE7pQIjTt8RvH2iPBOH6ONycKvGKX4aHUeacZhlU276DnuVMDF7jzABsApI1tx8XJlKifEdfb3llN+mXyKcu01wbEO/LgTWJCmciueNB01xznX5LzgkgH9wB8feiVPBZqNPllZB0FS9JxvDK8yXpD9OjZ2v8zzboaEo6mqixiW+vvEPU+fFXzb/Bz32Huo2f5ovZZG8rlBn9VE3f6SaRInso/IQW/WR/FAqZxZQzWIcOgnwLvjdeBI59SpucXLH6EvOSAszMKdKHniN4wKA=
   - secure: kR7X3GYEHrj8sQc4zMZFjd9L343pI2x1QZ3hJYerFmLBveMmWukxHuXuerARRbqJl42JMCHHf+7bLN9PGJPs2S2iZk7D7r2eMJYBPvF09pyo00/QioykqPkhEIhUuH5zMXLUnICThIfwbnjgT9zcUYOkJy7pxVPN0tIIFjkQVdpR+Q0DV9MASSDHobdnaafPG+Hw/33jnR3rnjYHHbarADa/k2KwbfhPJ69n2lA/9Cx77qYJ9THZKwNhC8/UAaJ4AOTfRLMLeLaaDiZT9LMerjgtZW2DTWzHH/UwUw33qisBrLuHTkOfSbKftuMLPtCyBC5L3GifIRSMterJpmL6Xst1LXOT42MyyrEkYKjGUxXUHNvTyihj/L9NAhifrvKjomuqMaIt1JZEVgfIDPde4b5kt5m5k13VnE9L1n2oVPF6meJVtcO4L8A9/CwA9cFh6qH/a1l1pODY1WRy0rX3YZenXFiIxQgd/QutNcxZcSBYKTpx+Hopns/zDChdb6mgq0dABc4ifneNlgHdFMi2LyDSe2KiB6VHoZVn8HLOjUbai1Ey4aoPLDJonO4kiysf9WHeJ166AswsfoOgz100e91fpE40tLnVZHDadAJwtU/+2Vt2y1nozc9OyDXzQvzwv6eT1ebd4ISvGndLpt3BVtB/AsGy9Swy/6Z8JPXaNW0=
   - secure: rUxSyn0Gr7yPKXdn3q+4NImK6bjmyjE8KhNPoVFtyiKKGn3un6WGxGzOEB2Bc1kOI4lI0ssP6j00oSxB2GNlCNJyE2cucEMpTgb3JTl8Y9WAk1yBr2RvoNg5oZtjGRjKaeATZkrljKxk4CE4cDm38qDdiFB0GGNGuhAkZ22L7LpPb0iRCVX3xyTN8LBtiBd5/tBUhXpmRccsn1w72ARuI0UGoD1DZUZ+NGa8jMX/iBNlOj4e+N2+0BuEjBTxLqKyivqX9eUT+OmNRYZYT85W9nmacBMSBoRkxc3Y1sUPdPADBaBkD5lFiJXuPzMR40WLDgYIMUuVhk671c4Mtb4ODBg+8mYFAV6ZMLsq9/3xjofkhGHUr4LxkXN2UZQG5IQCHKEsAitkRXlhzpzjn4c3tI+OHjPcxaLYBomPnOp4NtEcu3Z+hW0sdX4YfiDMaQiEpGq4M6+VdKC6WafjSjijgql3z+0pEHMRH8TVBb6vDfaCPJy7wL4DxGL+ouXuc6JCK3s52vNQ4CPVs5uwK7Q+HC5sClTXH126iKEmWM1Klb+lHDQyKCQ4ceWyyHRLmktjnXSbpwME0Swq2Wvj/EiTy0oQov1qM9JmRKiRhAkAH6url7l84J6q34maLCm8nPAqbHZCla2hvnh942TiJTRpMySevWILAVpD7IbgpYLSNaQ=
-
 deploy:
-  - provider: script
-    skip-cleanup: true
-    script: rsync -r --quiet --delete-after ${TRAVIS_BUILD_DIR}/target/cicd-example-*.jar ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIRECTORY}
-    on:
-      branch: master
-
-  - provider: script
-    skip-cleanup: true
-    script: sh ${TRAVIS_BUILD_DIR}/remote_deploy.sh
-    on:
-      branch: master
+- provider: script
+  skip-cleanup: true
+  script: rsync -r --quiet --delete-after ${TRAVIS_BUILD_DIR}/target/cicd-example-*.jar
+    ${DEPLOY_USER}@${DEPLOY_HOST}:${DEPLOY_DIRECTORY}
+  on:
+    branch: master
+- provider: script
+  skip-cleanup: true
+  script: sh ${TRAVIS_BUILD_DIR}/remote_deploy.sh
+  on:
+    branch: master
