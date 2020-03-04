@@ -12,7 +12,7 @@ addons:
       secure: "K5bjFX2JjiQSGubZveOu0IUAKY9GZUxwSlT1eZuMIFEIrXNd2bEjHMYFgbwUQcLvfMl5EPJEwyJHR3F7GqP2eEv+YHp5m60kQmoqY3fI03Bjdbt9PizqPdkC8ogOIkDES6UUF+Uk6/hyhK+Na4ZhvaLPSDHf+8s0giSqQ+6jUvdKWV3b8Q82qkEGYBASyUI0FjVEeYKoTdhSJfZeKjL9Zwr7zle19f8DWvj+k9s0OAiKnTe7l1lsvEAumEt4aqN/YqO/1oZN0StZFmYIuxys++QK3KtVzfHOXcdwHh+OcBZvhVlsVyGOSEY2/1SnX7OaEqsCEZ1H/08FnaAKEUL8fImoLH+EnZKnCYBQ0jmJbRGzylkMAEn9asv7hPMDks0AeQjC4XokBmU3rtxEjuC2Kms/znpTA2Wy9ph621KeQisO4ajzWOrkFmHo58bWdGHd0bAywfYZdmQQiVfQXsTTFtUwNvetTwGW7pJiP/ElvkvkxEBzrFNkaHdalXi3aBPvjdI1HKXEPwRz2a8ILqccZSvxe02mw4VOFGJB197z6x0/rrFb2K9gpqcdx5UDgdH0DpiFCGt9j7x79IE3e+wmsHEFaqtBd3LfPeZiUm1dn9n6BTREzRKiO7IAitUx1wUfxP9xKesDYIRB36wboIy7bXgDRunPItdurKEbyFxvNAQ="
       
 script:
-  - ./mvnw clean install sonar:sonar -Dsonar.projectKey="363800d9d36462da8d3c4c6956f622f7a8e1dfbe"
+  - ./mvnw clean install sonar:sonar -Dsonar.projectKey=yvesgoupil_OpenWIS_CICD_Training_Yves
  
 notifications:
   email:
