@@ -2,9 +2,6 @@ language: java
 
 jdk: openjdk11
 
-script:
- - ./mvnw clean install
-
 addons:
   sonarcloud:
     organization: “yvesgoupil“
